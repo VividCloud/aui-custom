@@ -1,6 +1,6 @@
 Package.describe({
     name: 'vvd:aui-custom',
-    version: '0.1.4',
+    version: '0.1.6',
     summary: 'Customize accounts-ui.',
     git: 'https://github.com/VividCloud/aui-custom',
     documentation: 'README.md'
@@ -11,5 +11,6 @@ Package.onUse(function(api) {
     api.use('ecmascript', 'client');
     api.use('templating', 'client');
     api.use('accounts-ui-unstyled', 'client');
+    api.addFiles('aui-custom.css', 'client');
     api.mainModule('aui-custom.js', 'client');
 });

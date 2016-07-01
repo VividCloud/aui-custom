@@ -9,15 +9,22 @@ export const AUICustom = {
     _links: [],
     _buttons: [],
     addLinkForUser(title, id, url) {
-        this._links.push({
-            title,
-            id,
-            url,
-        });
+        const exist = this._links.findIndex(el => el.id === id);
+        if (exist === -1) {
+            this._links.push({ title, id, url });
+        } else {
+            // Override the old one.
+            this._links[exist] = { title, id, url };
+        }
         return this._addEntries();
     },
     addButtonForUser(title, id, onClick) {
-        this._buttons.push({ title, id, onClick });
+        const exist = this._buttons.findIndex(el => el.id === id);
+        if (exist === -1) {
+            this._buttons.push({ title, id, onClick });
+        } else {
+            this._buttons[exist] = { title, id, onClick };
+        }
         return this._addEntries();
     },
     _addEntries() {

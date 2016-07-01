@@ -1,4 +1,4 @@
 .aui-custom-link-in-dropdown {
     display: block;
-    text-decoration: none;
+    text-decoration: none !important;
 }
