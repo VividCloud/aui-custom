@@ -33,7 +33,6 @@ export const AUICustom = {
                     $('#login-buttons-open-account-page').on('click', button.onClick);
                 }
             });
-          }
         });
     },
 };
