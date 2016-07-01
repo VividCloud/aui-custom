@@ -24,7 +24,7 @@ export const AUICustom = {
         Template._loginButtonsLoggedInDropdownActions.onRendered(() => {
             AUICustom._links.forEach(link => {
                 if (Meteor.user() && $(`#${link.id}`).length === 0) {
-                    $('#login-buttons-open-change-password').before(`<a class="login-button aui-custom-link-in-dropdown" id="${link.id} href="${link.url}">${link.title}</a>`);
+                    $('#login-buttons-open-change-password').before(`<a class="login-button aui-custom-link-in-dropdown" id="${link.id}" href="${link.url}">${link.title}</a>`);
                 }
             });
             AUICustom._buttons.forEach(button => {
