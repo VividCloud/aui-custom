@@ -1,6 +1,6 @@
 Package.describe({
     name: 'vvd:aui-custom',
-    version: '0.1.3',
+    version: '0.1.4',
     summary: 'Customize accounts-ui.',
     git: 'https://github.com/VividCloud/aui-custom',
     documentation: 'README.md'
