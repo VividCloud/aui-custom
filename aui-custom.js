@@ -1,13 +1,28 @@
 import { Template } from 'meteor/templating';
+import { ReactiveVar } from 'meteor/reactive-var';
+import 'meteor/aldeed:template-extension';
 import { Meteor } from 'meteor/meteor';
 import { $ } from 'meteor/jquery';
 
-// Need a css to noralize the link in accounts-ui.
+import './aui-custom.html';
+// Need a css to normalize the link in accounts-ui.
 import './aui-custom.css';
+
+// Define helpers we used in our modified template.
+Template._loginButtonsLoggedInDropdownActions.helpers({
+    auiDropdownLinks: () => AUICustom._reactiveLinks.get(),
+    auiDropdownButtonss: () => AUICustom._reactiveButtons.get(),
+    auiUrl: (url) => typeof url === 'function' ? url() : url,
+});
+
+// Finally, replace!
+Template.aui_loginButtonsLoggedInDropdownActions.replaces('_loginButtonsLoggedInDropdownActions');
 
 export const AUICustom = {
     _links: [],
     _buttons: [],
+    _reactiveLinks: new ReactiveVar([]),
+    _reactiveButtons: new ReactiveVar([]),
     addLinkForUser(title, id, url) {
         const exist = this._links.findIndex(el => el.id === id);
         if (exist === -1) {
@@ -28,24 +43,8 @@ export const AUICustom = {
         return this._addEntries();
     },
     _addEntries() {
-        Template._loginButtonsLoggedInDropdownActions.onRendered(() => {
-            AUICustom._links.forEach(link => {
-                if (Meteor.user() && $(`#${link.id}`).length === 0) {
-                    $('#login-buttons-open-change-password').before(
-                        `<a
-                            class="login-button aui-custom-link-in-dropdown"
-                            id="${link.id}"
-                            href="${typeof link.url === 'function' ? link.url() : link.url}">
-                            ${link.title}
-                        </a>`);
-                }
-            });
-            AUICustom._buttons.forEach(button => {
-                if (Meteor.user() && $(`#${button.id}`).length === 0) {
-                    $('#login-buttons-open-change-password').before(`<div class="login-button" id="${button.id}">${button.title}</div>`);
-                    $('#login-buttons-open-account-page').on('click', button.onClick);
-                }
-            });
-        });
+        // Apply modifications to the actually-used _reactive*, which are ReactiveVars.
+        this._reactiveLinks.set(this._links);
+        this._reactiveButtons.set(this._buttons);
     },
 };

@@ -1,0 +1,27 @@
+<template name="aui_loginButtonsLoggedInDropdownActions">
+    {{#each auiDropdownLinks}}
+        <a class="login-button aui-custom-link-in-dropdown"
+            id="{{id}}"
+            href="{{auiUrl url}}">
+            {{title}}
+        </a>
+    {{/each}}
+    {{#each auiDropdownButtons}}
+        <div class="login-button aui-custom-button-in-dropdown"
+            id="{{id}}">
+            {{title}}
+        </div>
+    {{/each}}
+
+    {{#if allowChangingPassword}}
+    <div class="login-button" id="login-buttons-open-change-password">
+        Change password
+    </div>
+    {{/if}}
+
+    <div class="login-button" id="login-buttons-logout">
+        Sign out
+    </div>
+
+    {{> _loginButtonsMessages}}
+</template>
